@@ -1,0 +1,1 @@
+//juke.controller('Albums')

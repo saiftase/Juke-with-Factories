@@ -10,9 +10,6 @@ juke.factory('StatsFactory', function ($q) {
       function resolveOrRecur () {
         if (n >= album.songs.length) resolve(sum);
         else{
-        	console.log("songs", album.songs);
-        	console.log("songs n++", album.songs[n++]);
-        	console.log("everything", album.songs[n++].audioUrl);
         	audio.src = album.songs[n++].audioUrl;
         }
       }
@@ -24,4 +21,26 @@ juke.factory('StatsFactory', function ($q) {
     });
   };
   return statsObj;
+});
+
+juke.factory('HttpFactory', function($http){
+  return {
+    fetchAll: function(callback, callbackFail){
+      return $http.get('/api/albums/')
+      .then(function(res){
+
+        callback(res)
+      }, function(err){
+        callbackFail(err);
+      });
+    },
+    fetchById: function(id, cb, cbf){
+      return $http.get('/api/albums/' + id)
+      .then(function(res){
+        cb(res);
+      }, function(err){
+        cbf(err);
+      });
+    }
+  };
 });
