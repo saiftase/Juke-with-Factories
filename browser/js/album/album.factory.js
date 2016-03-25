@@ -25,21 +25,16 @@ juke.factory('StatsFactory', function ($q) {
 
 juke.factory('HttpFactory', function($http){
   return {
-    fetchAll: function(callback, callbackFail){
+    fetchAll: function(){
       return $http.get('/api/albums/')
       .then(function(res){
-
-        callback(res)
-      }, function(err){
-        callbackFail(err);
+        return res.data;
       });
     },
-    fetchById: function(id, cb, cbf){
+    fetchById: function(id){
       return $http.get('/api/albums/' + id)
       .then(function(res){
-        cb(res);
-      }, function(err){
-        cbf(err);
+        return res.data;
       });
     }
   };
