@@ -1,7 +1,7 @@
 'use strict';
 
 juke.factory('StatsFactory', function ($q) {
-  var statsObj = {}
+  var statsObj = {};
   statsObj.totalTime = function (album) {
     var audio = document.createElement('audio');
     return $q(function (resolve, reject) {

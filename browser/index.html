@@ -59,15 +59,15 @@
 
         <div ng-if="true" ng-controller="AlbumsController">
           <h3>Albums</h3>
-          <div class="row" ng-repeat="album in albums">
-            <div class="col-xs-4">
+          <div class="row">
+            <div class="col-xs-4" ng-repeat="album in albums">
               <a class="thumbnail" href="#">
-                <!-- <img ng-src="/api/albums/{{album._id}}.image"> -->
+                <img ng-src="/api/albums/{{album._id}}.image">
                 <div class="caption">
                   <h5>
-                    <span>album.name</span>
+                    <span>{{album.name}}</span>
                   </h5>
-                  <small>album.songs.length</small>
+                  <small>{{album.songs.length}}</small>
                 </div>
               </a>
             </div>
