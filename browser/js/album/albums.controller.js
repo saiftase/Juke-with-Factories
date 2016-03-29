@@ -1,4 +1,4 @@
-juke.controller('AlbumsController', function(HttpFactory, $scope){
+juke.controller('AlbumsCtrl', function(HttpFactory, $scope){
 
   $scope.getAll = function(){
     HttpFactory.fetchAll()

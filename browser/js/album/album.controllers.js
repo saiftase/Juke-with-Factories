@@ -1,6 +1,6 @@
 //'use strict';
 
-juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFactory, PlayerFactory, HttpFactory) {
+juke.controller('AlbumCtrl', function($scope, $http, $log, StatsFactory, PlayerFactory, HttpFactory) {
 
   // load our initial data
   HttpFactory.fetchAll()
@@ -43,7 +43,7 @@ juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFact
     PlayerFactory.pause();
   }
   function play (event, song) {
-    PlayerFactory.start(song);
+    PlayerFactory.start(song, $scope.album.songs);
   }
 
   function next () { PlayerFactory.next(); }
