@@ -1,13 +1,17 @@
 //'use strict';
 
-juke.controller('AlbumCtrl', function($scope, $http, $log, StatsFactory, PlayerFactory, HttpFactory) {
+juke.controller('AlbumCtrl', function($scope, $http, $log, $rootScope, StatsFactory, PlayerFactory, HttpFactory) {
 
+  $rootScope.$on('viewSwap', function(event, data){
+    $scope.show = (data.name === 'albumView');
+  });
+
+  $rootScope.$on("newAlbum", function(event, album){
+    loadAlbum(album);
+  });
   // load our initial data
-  HttpFactory.fetchAll()
-  .then(function (albums) {
-    return HttpFactory.fetchById(albums[0]._id); // temp: get one
-  })
-  .then(function (album) {
+  function loadAlbum(album){
+    HttpFactory.fetchById(album._id).then(function (album) {
     album.imageUrl = '/api/albums/' + album._id + '.image';
     album.songs.forEach(function (song, i) {
       song.audioUrl = '/api/songs/' + song._id + '.audio'; //must be populated before statsFactory is called!
@@ -21,7 +25,7 @@ juke.controller('AlbumCtrl', function($scope, $http, $log, StatsFactory, PlayerF
       //$scope.$evalAsync();
     })
     .catch($log.error); // $log service can be turned on and off; also, pre-bound
-
+  }
   // main toggle
   $scope.toggle = function (song) {
     if (PlayerFactory.isPlaying() && song === PlayerFactory.getCurrentSong()) {
