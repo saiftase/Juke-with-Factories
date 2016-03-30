@@ -1,10 +1,18 @@
 juke.controller('ArtistsCtrl', function(ArtistFactory, $scope, $rootScope){
-  $scope.show = false;
-  console.log('ArtistsCtrl', $scope.show);
+  $rootScope.$on('viewSwap', function (evt, data){
+    $scope.show = (data.name === 'artistsView');
+  });
 
-  $scope.hello = function(){
-    console.log("Hi.");
-  }
+  ArtistFactory.fetchAll().then(function(artists){
+    $scope.artists = artists;
+  });
+
+  $scope.viewOneArtist = function(id){
+    $rootScope.$broadcast('viewSwap', {name: 'artistView'});
+    $rootScope.$broadcast('loadArtist', id);
+  };
+
+
   // $scope.$on('viewSwap', function(event, arg){
   //   $scope.show = (arg.name === "albumsView");
   // });
